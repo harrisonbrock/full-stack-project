@@ -4,8 +4,8 @@ const app = express();
 
 app.get('/', (req, res) => {
     res.send({hi: 'there'})
-})
+});
 
-const port = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8880;
 
-app.listen(port, () => console.log(`Lisetn in port ${port}`))
+app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
