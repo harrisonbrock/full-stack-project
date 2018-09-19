@@ -8,8 +8,8 @@ passport.use(new GoogleStrategy({
 	clientID: keys.googleClientID,
 	clientSecret: keys.googleSecret,
 	callbackURL: '/auth/google/callback'
-  }, (accessToken) => {
-	console.log(accessToken);
+  }, (accessToken, refreshToken, profile, done) => {
+	console.log(accessToken, refreshToken, profile, done);
   })
 );
 
@@ -17,6 +17,8 @@ app.get('/auth/google', passport.authenticate('google', {
 	scope: ['profile', 'email']
   })
 );
+
+app.get('/auth/google/callback', passport.authenticate('google'));
 
 app.get('/', (req, res) => {
   res.send({hi: 'there'})
