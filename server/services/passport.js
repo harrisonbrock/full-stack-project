@@ -9,13 +9,16 @@ passport.use(new GoogleStrategy({
 	clientSecret: keys.googleSecret,
 	callbackURL: '/auth/google/callback'
   }, (accessToken, refreshToken, profile, done) => {
+
   User.findOne({googleId: profile.id})
 	.then((exitingUser) => {
 	  if (exitingUser) {
-
+	    done(null, exitingUser);
 	  }
 	  else {
-	    new User({googleId: profile.id}).save();
+		new User({googleId: profile.id})
+		  .save()
+		  .then(user => done(null, user));
 	  }
 	});
 
